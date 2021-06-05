@@ -4,14 +4,18 @@
 # # Problems 3-4 
 # 
 # ## Problem 3: Reading coordinates from a file and creating geometries.
+# 田中大雅
 # 
 # 1: Read the [data/travelTimes_2015_Helsinki.txt](data/travelTimes_2015_Helsinki.txt) file into a variable **`data`** using  pandas.
 # 
 
 # YOUR CODE HERE 1 to read the file
 #raise NotImplementedError()
+
 import pandas as pd 
+# set filepath
 fp = 'data/travelTimes_2015_Helsinki.txt'
+# read the data that separated by ';'
 data = pd.read_csv(fp, sep=';')
 
 #Check how many rows and columns there are:
@@ -27,6 +31,7 @@ print(data.head())
 # 
 
 # YOUR CODE HERE 2 to set `data`
+# select four colums for this this homework
 data = data.filter(['from_x','from_y','to_x','to_y'])
 # CODE FOR TESTING YOUR SOLUTION
 print(list(data.columns))
@@ -72,14 +77,17 @@ print('dest_points length:', len(dest_points))
 # YOUR CODE HERE 4 to append points in orig_points and dest_points
 from shapely.geometry import Point
 
-
-#for idx, x_o, y_o, x_d, y_d in data.iterrows():
-for idx, d in data.iterrows():
-  """
+# I don't know Why this program wouldn't work
+###for idx, x_o, y_o, x_d, y_d in data.iterrows():
+"""
   point_orig = Point(x_o, y_o)
   point_dest = Point(x_d, y_d)
   orig_points.append(point_orig)
   dest_points.append(point_dest)"""
+
+# I understood about 'unpack' here
+for idx, d in data.iterrows():
+  # d consists of {['from_x'], ['from_y'], ['to_x'], ['to_y']}
   point_orig = Point(d[0], d[1])
   point_dest = Point(d[2], d[3])
   orig_points.append(point_orig)
@@ -135,7 +143,7 @@ print('lines length:', len(lines))
 # YOUR CODE HERE 6 to append LineString to lines
 #raise NotImplementedError()
 from shapely.geometry import LineString
-
+# use zip() for handle two lists at once
 for orig, dest in zip(orig_points, dest_points):
   line = LineString([(orig.x, orig.y), (dest.x, dest.y)])
   lines.append(line)
@@ -153,6 +161,7 @@ assert len(lines) == len(data), "There should be as many lines as there are rows
 
 # YOUR CODE HERE 7 to find total length
 total_length = 0.0
+# for all items in lines, get length of line and add to total_length
 for line in lines:
   total_length = total_length + line.length
 
@@ -175,7 +184,7 @@ print("Total length of all lines is", round(total_length, 2))
 # **Note: avoid using the same variable names as earlier inside your functions!** Functions are often defined at the top of the script file (or jupyter notebook), and now that we have them here at the very end you might accidentally alter an existing variable inside your functions. To avoid this, alter the variable names inside your own functions if you re-use code from this notebook. 
 
 # YOUR CODE HERE 8 to define create_od_lines() and calculate_total_distance()
-
+# I copied from earlier codes, but changed some names of variables
 def create_od_lines(point1, point2) :
   od_lines = []
   for orig, dest in zip(point1, point2):
