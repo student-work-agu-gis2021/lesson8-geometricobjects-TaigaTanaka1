@@ -13,7 +13,11 @@ from shapely.geometry import Point, LineString, Polygon
 #YOUR CODE HERE 1 to define create_point_geom()
 
 # create the function
+
 def create_point_geom(x_coord, y_coord):
+  """
+  create the point object and return it
+  """
   point = Point(x_coord, y_coord)
   return point
 
@@ -37,6 +41,9 @@ print(point1.geom_type)
 # YOUR CODE HERE 2 to define create_line_geom()
 #create the function to create line connect some points
 def create_line_geom(points):
+  """
+  create the LineString object and return it
+  """
   assert type(points)==list, "Input should be a list!"
   assert len(points) >= 2, "LineString object requires at least two Points!"
   line = LineString(points)
@@ -81,6 +88,9 @@ except Exception as e:
 # YOUR CODE HERE 4 to define create_poly_geom()
 # create function for Polygon
 def create_poly_geom(coords):
+  """
+  create the Polygon object and return it
+  """
   assert type(coords)==list, "Input should be a list!"
   assert len(coords) >= 3, "Polygon object requires at least three Points!"
   poly = Polygon(coords)
@@ -123,6 +133,9 @@ except Exception as e:
 #  YOUR CODE HERE 6 to define get_centroid()
 # create function that returns center of given points
 def get_centroid(geom):
+  """
+  get the center of the geometric object
+  """
   assert type(geom) == Point or type(geom) == LineString or type(geom) == Polygon, "Input should be a Shapely geometry!"
 
   return geom.centroid
@@ -157,6 +170,9 @@ except Exception as e:
 # YOUR CODE HERE 8 to define get_area()
 #create the function using .area method.
 def get_area(polygon):
+  """
+  get the area of the Polygon
+  """
   assert type(polygon) == Polygon, "Input should be a Shapely Polygon -object!"
 
   return polygon.area
@@ -184,8 +200,11 @@ except Exception as e:
 
 
 #  YOUR CODE HERE 9 to define get_length()
-# the function returns the length of the object
+
 def get_length(geom):
+  """
+  get the length of the geometric object
+  """
   assert type(geom) == Polygon or type(geom) == LineString, "'geom' should be either LineString or Polygon!"
 
 
